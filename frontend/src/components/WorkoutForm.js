@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
+// shared
 import { baseUrl } from '../shared/baseUrl';
+// hooks
+import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
 
 export default function WorkoutForm() {
+
+  const {dispatch} = useWorkoutsContext();
 
   const [workout, setWorkout] = useState({
     title: '',
@@ -31,7 +36,8 @@ export default function WorkoutForm() {
       setWorkout({...workout, title: '', load: '', reps: ''});
       setError(null);
       console.log('new workout added', datas);
-    }
+      dispatch({type: 'CREATE_WORKOUT', payload: datas});
+    };
   };
 
 

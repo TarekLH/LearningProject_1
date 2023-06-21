@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 // components
-import { baseUrl } from '../shared/baseUrl';
 import WorkoutDetails from '../components/WorkoutDetails';
 import WorkoutForm from '../components/WorkoutForm';
+// hooks
+import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
+// shared
+import { baseUrl } from '../shared/baseUrl';
 
 export default function Home() {
 
-  const [workouts, setWorkouts] = useState(null);
+  const {workouts, dispatch} = useWorkoutsContext();
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -14,8 +17,8 @@ export default function Home() {
       const datas = await response.json();
 
       if (response.ok) {
-        setWorkouts(datas);
-      }
+        dispatch({type: 'SET_WORKOUTS', payload: datas});
+      };
     };
     fetchWorkouts();
   },[])
