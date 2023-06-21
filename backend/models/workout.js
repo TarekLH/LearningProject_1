@@ -7,12 +7,16 @@ const workoutSchema = new Schema({
     type: String,
     required: true
   },
-  reps: {
+  distance: {
     type: Number,
     required: true
   },
-  load: {
-    type: Number,
+  pace: {
+    type: String,
+    required: true
+  },
+  time: {
+    type: String,
     required: true
   }
 }, {timestamps: true, collection: 'Workouts'});

@@ -10,8 +10,9 @@ export default function WorkoutForm() {
 
   const [workout, setWorkout] = useState({
     title: '',
-    load: '',
-    reps: ''
+    distance: '',
+    pace: '',
+    time:''
   });
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
@@ -34,7 +35,7 @@ export default function WorkoutForm() {
     };
 
     if (response.ok) {
-      setWorkout({...workout, title: '', load: '', reps: ''});
+      setWorkout({...workout, title: '', distance: '', pace: '', time:''});
       setError(null);
       setEmptyFields([]);
       console.log('new workout added', datas);
@@ -45,9 +46,9 @@ export default function WorkoutForm() {
 
   return (
     <form className="create" onSubmit={handleSubmit}>
-      <h3>Add a New Workout</h3>
+      <h3>Add a New Run</h3>
 
-      <label>Excersize Title:</label>
+      <label>Run Title:</label>
       <input
         type="text"
         value={workout.title}
@@ -55,23 +56,31 @@ export default function WorkoutForm() {
         className={emptyFields.includes('title') ? 'error' : ''}
       />
 
-      <label>Load (kg):</label>
+      <label>Distance (km):</label>
       <input
         type="number"
-        value={workout.load}
-        onChange={(event) => setWorkout({...workout, load: event.target.value})}
-        className={emptyFields.includes('load') ? 'error' : ''}
+        value={workout.distance}
+        onChange={(event) => setWorkout({...workout, distance: event.target.value})}
+        className={emptyFields.includes('distance') ? 'error' : ''}
       />
 
-      <label>Reps:</label>
+      <label>Avg.Pace:</label>
       <input
-        type="number"
-        value={workout.reps}
-        onChange={(event) => setWorkout({...workout, reps: event.target.value})}
-        className={emptyFields.includes('reps') ? 'error' : ''}
+        type="text"
+        value={workout.pace}
+        onChange={(event) => setWorkout({...workout, pace: event.target.value})}
+        className={emptyFields.includes('pace') ? 'error' : ''}
       />
 
-      <button type='submit'>Add Workout</button>
+      <label>Time:</label>
+      <input
+        type="text"
+        value={workout.time}
+        onChange={(event) => setWorkout({...workout, time: event.target.value})}
+        className={emptyFields.includes('time') ? 'error' : ''}
+      />
+
+      <button type='submit'>Add Run</button>
       {error && <div className='error'>{error}</div>}
     </form>
   )

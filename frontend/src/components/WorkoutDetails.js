@@ -1,8 +1,10 @@
-import React from 'react'
+import React from 'react';
 // shared
-import { baseUrl } from '../shared/baseUrl'
+import { baseUrl } from '../shared/baseUrl';
 // hooks
-import { useWorkoutsContext } from '../hooks/useWorkoutsContext'
+import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
+// date fns
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 export default function WorkoutDetails({workout}) {
 
@@ -23,10 +25,11 @@ export default function WorkoutDetails({workout}) {
   return (
     <div className='workout-details'>
       <h4>{workout.title}</h4>
-      <p><strong>Load (kg): </strong>{workout.load}</p>
-      <p><strong>Reps: </strong>{workout.reps}</p>
-      <p>{workout.createdAt}</p>
-      <span onClick={handleClick}>Delete</span>
+      <p><strong>Distance (km): </strong>{workout.distance}</p>
+      <p><strong>Avg, Pace: </strong>{workout.pace}</p>
+      <p><strong>Time: </strong>{workout.time}</p>
+      <p>{formatDistanceToNow(new Date(workout.createdAt), { addSuffix: true})}</p>
+      <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
     </div>
   )
 }

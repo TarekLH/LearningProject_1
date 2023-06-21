@@ -6,7 +6,7 @@ export default function Navbar() {
     <header>
       <div className='container'>
         <Link to="/">
-          <h1>Workout</h1>
+          <h1>Running Activity</h1>
         </Link>
       </div>
     </header>
