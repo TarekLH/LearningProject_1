@@ -20,8 +20,8 @@ async function getWorkouts(req, res) {
 // get a single workout
 async function getWorkout(req, res) {
   try {
-    // Check if the id does not exist in the db
-    if ( !ObjectID.isValid(req.params.id) ) return res.status(404).send('ID is not valid : ' + req.params.id);
+    // Check if the id is valid
+    if ( !ObjectID.isValid(req.params.id) ) return res.status(400).send('ID is not valid : ' + req.params.id);
 
     const workout = await workoutModel.findById({_id: req.params.id})
 
@@ -60,8 +60,8 @@ async function addWorkout(req, res) {
 // delete a workout
 async function deleteWorkout(req, res) {
   try {
-    // Check if the id does not exist in the db
-    if ( !ObjectID.isValid(req.params.id) ) return res.status(404).send('ID is not valid: ' + req.params.id);
+    // Check if the id is valid
+    if ( !ObjectID.isValid(req.params.id) ) return res.status(400).send('ID is not valid: ' + req.params.id);
 
     const workout = await workoutModel.findOneAndDelete({_id: req.params.id});
 
@@ -77,18 +77,17 @@ async function deleteWorkout(req, res) {
 // update a workout
 async function updateWorkout(req, res) {
   try {
-    // Check if the id does not exist in the db
-    if ( !ObjectID.isValid(req.params.id) ) return res.status(404).send('ID is not valid: ' + req.params.id);
+    // Check if the id is valid
+    if ( !ObjectID.isValid(req.params.id) ) return res.status(400).send('ID is not valid: ' + req.params.id);
 
     const workout = await workoutModel.findOneAndUpdate(
       {_id: req.params.id},
       {...req.body},
-      {returnDocument: 'after'}
     );
 
     if (!workout) return res.status(404).send('Workout with id: ' + req.params.id + ' not found');
 
-    res.status(200).send('Workout updated');
+    res.status(200).json(workout);
   } catch (error) {
     res.status(400).json({error: error.message});
     console.log(error);
