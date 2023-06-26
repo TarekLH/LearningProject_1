@@ -37,6 +37,21 @@ userSchema.statics.signup = async function(email, password) {
   return newUser
 };
 
+// static signin method
+userSchema.statics.signin = async function(email, password) {
+  // validation
+  if (!email || !password) { throw Error('All fields must be filled.')};
+
+  const user = await this.findOne({email});
+  if (!user) { throw Error('Incorrect email.')};
+
+  const match = await bcrypt.compare(password, user.password);
+  if (!match) { throw Error('Incorrect password.')};
+
+  return user
+};
+
+
 // creating workout model
 const userModel = mongoose.model('userModel', userSchema);
 
