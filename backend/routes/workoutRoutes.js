@@ -1,21 +1,21 @@
 // requirements
 const router = require('express').Router();
 // controllers
-const workoutsController = require('../controllers/workoutsController');
+const { getWorkouts, getWorkout, addWorkout, deleteWorkout, updateWorkout } = require('../controllers/workoutsController');
 
 // GET all workouts
-router.get('/', workoutsController.getWorkouts);
+router.get('/', getWorkouts);
 
 // GET a single workout
-router.get('/:id', workoutsController.getWorkout);
+router.get('/:id', getWorkout);
 
 // POST a new workout
-router.post('/', workoutsController.addWorkout);
+router.post('/', addWorkout);
 
 // DELETE a workout
-router.delete('/:id', workoutsController.deleteWorkout);
+router.delete('/:id', deleteWorkout);
 
 // Update a workout
-router.patch('/:id', workoutsController.updateWorkout);
+router.patch('/:id', updateWorkout);
 
 module.exports = router;

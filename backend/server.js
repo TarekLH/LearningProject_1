@@ -9,6 +9,7 @@ require('./config/db');
 
 // routes
 const workoutRoutes = require('./routes/workoutRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 // init app
 const app = express();
@@ -32,7 +33,8 @@ app.use((req, res, next) => {
 });
 
 // routes
-app.use('/api/workouts',workoutRoutes);
+app.use('/api/workouts', workoutRoutes);
+app.use('/api/user', userRoutes);
 
 // listen for requests
 const PORT = process.env.PORT; //5000
