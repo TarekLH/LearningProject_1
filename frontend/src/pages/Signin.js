@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
+import { useSignin } from '../hooks/useSignin';
 
 export default function Signin() {
   const [credentials, setCredentials] = useState({
     email: '',
     password: ''
   });
+  const {signin, isLoading, error} = useSignin();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(credentials);
-    setCredentials({...credentials, email: '', password: ''});
+    await signin(credentials.email, credentials.password);
   };
 
   return (
@@ -29,7 +31,8 @@ export default function Signin() {
         onChange={(e) => setCredentials({...credentials, password: e.target.value})}
       />
 
-      <button type='submit'>Signin</button>
+      <button type='submit' disabled={isLoading}>Signin</button>
+      {error && <div className='error'>{error}</div>}
     </form>
   )
 }
