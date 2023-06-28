@@ -8,6 +8,12 @@ export default function Navbar() {
         <Link to="/">
           <h1>Running Activity</h1>
         </Link>
+        <nav>
+          <div>
+            <Link to='/signin'>Signin</Link>
+            <Link to='/signup'>Signup</Link>
+          </div>
+        </nav>
       </div>
     </header>
   )
