@@ -13,7 +13,7 @@ const requireAuth = async (req, res, next) => {
     // take the id from the token payloads
     const {_id} = jwt.verify(token, process.env.SECRET_KEY);
     // store the user id in the request object to make it accessible for all the middlewares
-    req.userId = await userModel.findById({_id}).select('_id');
+    req.user = await userModel.findById({_id}).select('_id');
     next();
   } catch (error) {
     console.log(error);

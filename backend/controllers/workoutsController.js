@@ -6,8 +6,10 @@ const ObjectID = require('mongoose').Types.ObjectId;
 
 // get all workouts
 async function getWorkouts(req, res) {
+  const user_id = req.user._id;
+
   try {
-    await workoutModel.find({}).sort({createdAt: -1})
+    await workoutModel.find({user_id}).sort({createdAt: -1})
       .then(datas => {
         res.status(200).json(datas);
       });
@@ -36,18 +38,20 @@ async function getWorkout(req, res) {
 
 // create a new workout
 async function addWorkout(req, res) {
+  const {title, distance, pace, time} = req.body;
+  const user_id = req.user._id;
 
   let emptyFields = [];
-  if (!req.body.title) { emptyFields.push('title') };
-  if (!req.body.distance) { emptyFields.push('distance') };
-  if (!req.body.pace) { emptyFields.push('pace') };
-  if (!req.body.time) { emptyFields.push('time') };
+  if (!title) { emptyFields.push('title') };
+  if (!distance) { emptyFields.push('distance') };
+  if (!pace) { emptyFields.push('pace') };
+  if (!time) { emptyFields.push('time') };
   if (emptyFields.length > 0) {
     return res.status(400).json({ error: 'Please fill in all the fields', emptyFields})
   };
 
   try {
-    await new workoutModel(req.body).save()
+    await new workoutModel({title, distance, pace, time, user_id}).save()
       .then(datas => {
         res.status(201).json(datas);
       });
