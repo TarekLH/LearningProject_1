@@ -2,6 +2,12 @@
 const router = require('express').Router();
 // controllers
 const { getWorkouts, getWorkout, addWorkout, deleteWorkout, updateWorkout } = require('../controllers/workoutsController');
+// middlewares
+const requireAuth = require('../middlewares/requireAuth')
+
+
+// require auth for all workouts routes
+router.use(requireAuth);
 
 // GET all workouts
 router.get('/', getWorkouts);
